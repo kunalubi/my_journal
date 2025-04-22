@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate(); // For redirect
-  const [username, setUsername] = useState(""); // input state
-  const [password, setPassword] = useState("");
+  const [user_name, setUser_name] = useState(""); // input state
+  const [pwd, setPwd] = useState("");
   const [error, setError] = useState(""); // error state
 
   const handleLogin = async () => {
@@ -13,7 +13,7 @@ const Login = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ user_name, pwd }),
     });
 
     const result = await res.json();
@@ -33,16 +33,16 @@ const Login = () => {
 
       <input
         type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
+        placeholder="User Name"
+        value={user_name}
+        onChange={(e) => setUser_name(e.target.value)}
       /><br /><br />
 
       <input
         type="password"
         placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        value={pwd}
+        onChange={(e) => setPwd(e.target.value)}
       /><br /><br />
 
       <button onClick={handleLogin}>Login</button>
