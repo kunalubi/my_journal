@@ -1,5 +1,57 @@
 .fix {
-    height: 200px;
+    height: 180px;
     overflow-y: auto;
-  }
-  
+}
+
+.graph {
+    height: 275px;
+    overflow-y: auto;
+}
+
+.slider-container h4 {
+    color: #35617E;
+    width: 95%;
+    font-weight: bold;
+    text-align: start;
+    margin-left: 40px;
+}
+
+.slider {
+    width: 95%;
+    overflow: hidden;
+    position: relative;
+    margin: 20px;
+    border: 1px solid #35617E;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.slides {
+    display: flex;
+    width: calc(100% * 7 / 5);
+    transition: transform 0.5s ease-in-out;
+}
+
+.slides img {
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    margin: 10px;
+    width: calc(100% / 5);
+    height: 100px;
+}
+
+
+
+/* Card styles */
+.card {
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,.05);
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid rgba(0,0,0,.125);
+    padding: 0.75rem 1.25rem;
+    font-weight: 500;
+}

@@ -47,7 +47,7 @@ const Register = () => {
     <div>
       <Header />
       <div className="d-flex justify-content-center flex-grow-1">
-        <div className="col-11" style={{ marginTop: "10px", border: "1px solid black", padding: "10px" }}>
+        <div className="col-10" style={{ marginTop: "10px", border: "1px solid black", padding: "10px" }}>
           <h2 className="text-center mb-4">Register</h2>
             <form onSubmit={handleSubmit}>
               <div className="mb-3">

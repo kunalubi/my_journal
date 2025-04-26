@@ -1,8 +1,9 @@
 // src/components/Header.js
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Navbar, Nav, Container, Button } from 'react-bootstrap';
+import { Navbar, Nav, Container, Button, NavDropdown } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ const Header = () => {
         <Container className="d-flex align-items-center justify-content-between">
           <div className="d-flex align-items-center">
             <img 
-              src="/logo.jpg" 
+              src="/images/logoo.jpg" 
               alt="Journal Logo" 
               style={styles.logo}
             />
@@ -38,17 +39,33 @@ const Header = () => {
           </div>
         </Container>
       </div>
-      <Navbar style={styles.navbar} expand="lg">
+      <Navbar expand="lg" style={styles.navbar}>
         <Container>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="w-100 justify-content-between">
               <Nav.Link href="/" style={styles.navLink}>Home</Nav.Link>
-              <Nav.Link href="/about" style={styles.navLink}>About Us</Nav.Link>
-              <Nav.Link href="/current-issue" style={styles.navLink}>Current Issue</Nav.Link>
-              <Nav.Link href="/archives" style={styles.navLink}>Archives</Nav.Link>
-              <Nav.Link href="/submit" style={styles.navLink}>Submit Manuscript</Nav.Link>
-              <Nav.Link href="/editorial-board" style={styles.navLink}>Editorial Board</Nav.Link>
+              <Nav.Link href="/journal_info" style={styles.navLink}>Journal Info</Nav.Link>
+              <NavDropdown title="Editorial" id="basic-nav-dropdown" style={styles.navLink}>
+                <NavDropdown.Item href="/editorial_team">Editorial Team</NavDropdown.Item>
+                <NavDropdown.Item href="/editorial_guidelines">Editorial Guidelines</NavDropdown.Item>
+              </NavDropdown>
+              <NavDropdown title="Reviewer" id="basic-nav-dropdown" style={styles.navLink}>
+                <NavDropdown.Item href="/reviewer_team">Reviewer Team</NavDropdown.Item>
+                <NavDropdown.Item href="/reviewer_role">Reviewer Role</NavDropdown.Item>
+                <NavDropdown.Item href="/join_as_reviewer">Join a Reviewer</NavDropdown.Item>
+              </NavDropdown>
+              <NavDropdown title="Author" id="basic-nav-dropdown" style={styles.navLink}>
+                <NavDropdown.Item href="/authors_instructions">Author Instructions</NavDropdown.Item>
+                <NavDropdown.Item href="/publication_ethics">Publication Ethics</NavDropdown.Item>
+                <NavDropdown.Item href="/publication_fee">Publication Fee</NavDropdown.Item>
+              </NavDropdown>
+              <Nav.Link href="/submit_manuscript" style={styles.navLink}>Submit Manuscript</Nav.Link>
+              <NavDropdown title="Articles" id="basic-nav-dropdown" style={styles.navLink}>
+                <NavDropdown.Item href="/current_articles">Current Articles</NavDropdown.Item>
+                <NavDropdown.Item href="/archive">Archive</NavDropdown.Item>
+                <NavDropdown.Item href="/online_first">Online First</NavDropdown.Item>
+              </NavDropdown>
               <Nav.Link href="/contact" style={styles.navLink}>Contact</Nav.Link>
             </Nav>
           </Navbar.Collapse>
