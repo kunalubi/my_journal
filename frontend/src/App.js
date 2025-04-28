@@ -16,6 +16,8 @@ import ReviewerTeam from "./pages/reviewer_team";
 import SubmitManuscript from "./pages/submit_manuscript";
 import Contact from "./pages/contact";
 import ProtectedRoute from "./components/ProtectedRoute";
+import EditProfile from "./pages/admin/editprofile";
+import Profile from "./pages/admin/profile";
 
 //admin page routes
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -46,6 +48,8 @@ function App() {
         <Route path="/reviewer_team" element={<ReviewerTeam />} />
         <Route path="/submit_manuscript" element={<SubmitManuscript />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/admin/editprofile" element={<EditProfile />} />
+        <Route path="/admin/profile" element={<Profile />} />
       </Routes>
     </Router>
   );
