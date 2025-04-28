@@ -11,11 +11,12 @@ include("db.php");
 $data = json_decode(file_get_contents("php://input"));
 $user_name = $data->user_name ?? '';
 $pwd = $data->pwd ?? '';
+$user_type = $data->user_type ?? '';
 
 // Prepare & run SQL
-$sql = "SELECT * FROM user_login WHERE user_name = ? AND pwd = ?";
+$sql = "SELECT * FROM user_login WHERE user_name = ? AND pwd = ? AND user_type = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("ss", $user_name, $pwd);
+$stmt->bind_param("sss", $user_name, $pwd, $user_type);
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -33,7 +34,7 @@ if ($result->num_rows > 0) {
 } else {
   echo json_encode([
     "success" => false,
-    "message" => "Invalid username or password"
+    "message" => "Invalid username or password or user type"
   ]);
 }
 ?>
