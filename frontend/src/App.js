@@ -18,10 +18,10 @@ import Contact from "./pages/contact";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 //admin page routes
-import AdminDashboard from "./pages/AdminDashboard";
-import AuthorDashboard from "./pages/AuthorDashboard";
-import EditorDashboard from "./pages/EditorDashboard";
-import ReviewerDashboard from "./pages/ReviewerDashboard";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AuthorDashboard from "./pages/author/AuthorDashboard";
+import EditorDashboard from "./pages/editor/EditorDashboard";
+import ReviewerDashboard from "./pages/reviewer/ReviewerDashboard";
 
 function App() {
   return (
@@ -29,11 +29,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/admin-dashboard" element={
-          <ProtectedRoute>
-            <AdminDashboard />
-          </ProtectedRoute>
-        } />
+        <Route path="/admin-dashboard" element={ <ProtectedRoute> <AdminDashboard /> </ProtectedRoute>} />
+        <Route path="/author-dashboard" element={ <ProtectedRoute> <AuthorDashboard /> </ProtectedRoute>} />
+        <Route path="/editor-dashboard" element={ <ProtectedRoute> <EditorDashboard /> </ProtectedRoute>} />
+        <Route path="/reviewer-dashboard" element={ <ProtectedRoute> <ReviewerDashboard /> </ProtectedRoute>} />
         <Route path="/register" element={<Register />} />
         <Route path="/archive" element={<Archive />} />
         <Route path="/authors_instructions" element={<AuthorsInstructions />} />
@@ -47,21 +46,6 @@ function App() {
         <Route path="/reviewer_team" element={<ReviewerTeam />} />
         <Route path="/submit_manuscript" element={<SubmitManuscript />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/author-dashboard" element={
-          <ProtectedRoute>
-            <AuthorDashboard />
-          </ProtectedRoute>
-        } />
-        <Route path="/editor-dashboard" element={
-          <ProtectedRoute>
-            <EditorDashboard />
-          </ProtectedRoute>
-        } />
-        <Route path="/reviewer-dashboard" element={
-          <ProtectedRoute>
-            <ReviewerDashboard />
-          </ProtectedRoute>
-        } />
       </Routes>
     </Router>
   );
