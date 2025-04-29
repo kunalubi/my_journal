@@ -264,7 +264,7 @@ const EditProfile = () => {
                             <button type="submit" className="btn btn-primary me-2" disabled={loading}>
                                 {loading ? 'Saving...' : 'Save Changes'}
                             </button>
-                            <button type="button" className="btn btn-secondary" onClick={() => navigate('/admin/profile')}>
+                            <button type="button" className="btn btn-secondary" onClick={() => navigate(-1)}>
                                 Cancel
                             </button>
                         </div>

@@ -19,6 +19,67 @@ function sendJsonResponse($success, $message, $data = null) {
     exit;
 }
 
+// Handle GET request for fetching users
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    try {
+        // Check if it's a get_users request
+        if (isset($_GET['action']) && $_GET['action'] === 'get_users') {
+            // Debug: Print the query
+            $query = "SELECT * FROM user_login WHERE status = 1";
+            error_log("Query: " . $query);
+            
+            $result = $conn->query($query);
+            
+            if ($result) {
+                $users = array();
+                while ($row = $result->fetch_assoc()) {
+                    // Debug: Print each row
+                    error_log("User row: " . print_r($row, true));
+                    $users[] = $row;
+                }
+                // Debug: Print final users array
+                error_log("Final users array: " . print_r($users, true));
+                sendJsonResponse(true, 'Users fetched successfully', ['users' => $users]);
+            } else {
+                throw new Exception("Failed to fetch users: " . $conn->error);
+            }
+        }
+        // Handle single user fetch
+        else if (isset($_GET['login_id'])) {
+            $userId = intval($_GET['login_id']);
+
+            if ($userId <= 0) {
+                sendJsonResponse(false, 'Invalid user ID');
+            }
+
+            $stmt = $conn->prepare("SELECT login_id, user_name, Email, Mobile, Address, City, State, user_image 
+                FROM user_login WHERE login_id = ? AND status = 1");
+            
+            if (!$stmt) {
+                sendJsonResponse(false, 'Database error: ' . $conn->error);
+            }
+
+            $stmt->bind_param("i", $userId);
+            
+            if (!$stmt->execute()) {
+                sendJsonResponse(false, 'Failed to fetch user data: ' . $stmt->error);
+            }
+
+            $result = $stmt->get_result();
+            $userData = $result->fetch_assoc();
+
+            if (!$userData) {
+                sendJsonResponse(false, 'User not found');
+            }
+
+            sendJsonResponse(true, 'User data fetched successfully', ['user' => $userData]);
+        }
+    } catch (Exception $e) {
+        error_log("Error in get_users: " . $e->getMessage());
+        sendJsonResponse(false, 'An error occurred: ' . $e->getMessage());
+    }
+}
+
 // Handle POST request for profile update
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
@@ -88,42 +149,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $userData = $result->fetch_assoc();
 
         sendJsonResponse(true, 'Profile updated successfully', ['user' => $userData]);
-
-    } catch (Exception $e) {
-        sendJsonResponse(false, 'An error occurred: ' . $e->getMessage());
-    }
-}
-
-// Handle GET request for fetching user data
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    try {
-        $userId = isset($_GET['login_id']) ? intval($_GET['login_id']) : 0;
-
-        if ($userId <= 0) {
-            sendJsonResponse(false, 'Invalid user ID');
-        }
-
-        $stmt = $conn->prepare("SELECT login_id, user_name, Email, Mobile, Address, City, State, user_image 
-            FROM user_login WHERE login_id = ? AND status = 1");
-        
-        if (!$stmt) {
-            sendJsonResponse(false, 'Database error: ' . $conn->error);
-        }
-
-        $stmt->bind_param("i", $userId);
-        
-        if (!$stmt->execute()) {
-            sendJsonResponse(false, 'Failed to fetch user data: ' . $stmt->error);
-        }
-
-        $result = $stmt->get_result();
-        $userData = $result->fetch_assoc();
-
-        if (!$userData) {
-            sendJsonResponse(false, 'User not found');
-        }
-
-        sendJsonResponse(true, 'User data fetched successfully', ['user' => $userData]);
 
     } catch (Exception $e) {
         sendJsonResponse(false, 'An error occurred: ' . $e->getMessage());

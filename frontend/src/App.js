@@ -24,7 +24,7 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import AuthorDashboard from "./pages/author/AuthorDashboard";
 import EditorDashboard from "./pages/editor/EditorDashboard";
 import ReviewerDashboard from "./pages/reviewer/ReviewerDashboard";
-
+import Users from "./pages/admin/users";
 function App() {
   return (
     <Router>
@@ -50,6 +50,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/admin/editprofile" element={<EditProfile />} />
         <Route path="/admin/profile" element={<Profile />} />
+        <Route path="/admin/users" element={<Users />} />
       </Routes>
     </Router>
   );
