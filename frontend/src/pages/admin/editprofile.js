@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import Sidebar from './sidebar';
 
 const EditProfile = () => {
     const location = useLocation();
@@ -10,15 +11,17 @@ const EditProfile = () => {
         Mobile: '',
         Address: '',
         City: '',
-        State: ''
+        State: '',
+        user_image: ''
     });
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [previewUrl, setPreviewUrl] = useState('');
 
     useEffect(() => {
         const userFromState = location.state?.user;
-
         if (!userFromState) {
             const storedUser = localStorage.getItem('user');
             if (storedUser) {
@@ -46,6 +49,9 @@ const EditProfile = () => {
 
             if (data.success) {
                 setUserData(data.user);
+                if (data.user.user_image) {
+                    setPreviewUrl(`http://localhost/my_journal/public/${data.user.user_image}`);
+                }
             } else {
                 throw new Error('User not found');
             }
@@ -65,6 +71,14 @@ const EditProfile = () => {
         }));
     };
 
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setSelectedImage(file);
+            setPreviewUrl(URL.createObjectURL(file));
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -72,26 +86,39 @@ const EditProfile = () => {
         setSuccess(null);
 
         try {
+            const formData = new FormData();
+            
+            // Add profile data
+            Object.keys(userData).forEach(key => {
+                formData.append(key, userData[key]);
+            });
+            
+            // Add image if selected
+            if (selectedImage) {
+                formData.append('user_image', selectedImage);
+            }
+            
+            // Add action
+            formData.append('action', 'update_profile');
+
             const response = await fetch('http://localhost/my_journal/backend/admin.php', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    action: 'update_profile',
-                    ...userData
-                })
+                body: formData
             });
 
             const data = await response.json();
 
             if (data.success) {
                 setSuccess('Profile updated successfully!');
+                if (data.user.user_image) {
+                    setPreviewUrl(`http://localhost/my_journal/public/${data.user.user_image}`);
+                }
                 // Update localStorage with new data
                 const storedUser = JSON.parse(localStorage.getItem('user'));
                 localStorage.setItem('user', JSON.stringify({
                     ...storedUser,
-                    ...userData
+                    ...userData,
+                    user_image: data.user.user_image
                 }));
             } else {
                 throw new Error(data.message || 'Failed to update profile');
@@ -126,17 +153,8 @@ const EditProfile = () => {
         );
     }
 
-    if (error) {
-        return (
-            <div className="container mt-4">
-                <div className="alert alert-danger text-center" role="alert">
-                    {error} <br /> Redirecting to login...
-                </div>
-            </div>
-        );
-    }
-
     return (
+        <Sidebar title="Admin Dashboard">
         <div className="container mt-4">
             <div className="card">
                 <div className="card-header bg-primary text-white">
@@ -148,6 +166,33 @@ const EditProfile = () => {
                             {success}
                         </div>
                     )}
+                    {error && (
+                        <div className="alert alert-danger" role="alert">
+                            {error}
+                        </div>
+                    )}
+                    
+                    {/* Profile Image Section */}
+                    <div className="text-center mb-4">
+                        <div className="position-relative d-inline-block">
+                            <img
+                                src={previewUrl || '/default-avatar.png'}
+                                alt="Profile"
+                                className="rounded-circle"
+                                style={{ width: '150px', height: '150px', objectFit: 'cover' }}
+                            />
+                            <label className="position-absolute bottom-0 end-0 bg-primary text-white rounded-circle p-2 cursor-pointer">
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleImageChange}
+                                    className="d-none"
+                                />
+                                <i className="fas fa-camera"></i>
+                            </label>
+                        </div>
+                    </div>
+
                     <form onSubmit={handleSubmit}>
                         <div className="row">
                             <div className="col-md-6">
@@ -227,6 +272,7 @@ const EditProfile = () => {
                 </div>
             </div>
         </div>
+        </Sidebar>
     );
 };
 

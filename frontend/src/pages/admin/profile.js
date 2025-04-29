@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import Sidebar from './sidebar';
+
 
 const Profile = () => {
     const location = useLocation();
@@ -82,6 +84,7 @@ const Profile = () => {
     }
 
     return (
+        <Sidebar title="Admin Dashboard">
         <div className="container mt-4">
             <div className="card">
                 <div className="card-header bg-primary text-white">
@@ -122,6 +125,7 @@ const Profile = () => {
                 </div>
             </div>
         </div>
+        </Sidebar>
     );
 };
 
