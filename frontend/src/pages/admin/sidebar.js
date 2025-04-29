@@ -236,9 +236,9 @@ const Sidebar = ({ children, title }) => {
                                 <ul className="list-unstyled">
                                     <li>
                                         <div 
-                                            onClick={() => navigate('/admin/publishers/issues')} 
+                                            onClick={() => navigate('/admin/issues')} 
                                             className="text-white text-decoration-none d-block p-2" 
-                                            style={getSubActiveStyle('/admin/publishers/issues')}
+                                            style={getSubActiveStyle('/admin/issues')}
                                         >
                                             Issues
                                         </div>
@@ -312,18 +312,18 @@ const Sidebar = ({ children, title }) => {
                                 <ul className="list-unstyled">
                                     <li>
                                         <div 
-                                            onClick={() => navigate('/admin/settings/article-subjects')} 
+                                            onClick={() => navigate('/admin/article-subjects')} 
                                             className="text-white text-decoration-none d-block p-2" 
-                                            style={getSubActiveStyle('/admin/settings/article-subjects')}
+                                            style={getSubActiveStyle('/admin/article-subjects')}
                                         >
                                             Article Subjects
                                         </div>
                                     </li>
                                     <li>
                                         <div 
-                                            onClick={() => navigate('/admin/settings/article-types')} 
+                                            onClick={() => navigate('/admin/article-types')} 
                                             className="text-white text-decoration-none d-block p-2" 
-                                            style={getSubActiveStyle('/admin/settings/article-types')}
+                                            style={getSubActiveStyle('/admin/article-types')}
                                         >
                                             Article Types
                                         </div>

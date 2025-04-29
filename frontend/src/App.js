@@ -25,6 +25,10 @@ import AuthorDashboard from "./pages/author/AuthorDashboard";
 import EditorDashboard from "./pages/editor/EditorDashboard";
 import ReviewerDashboard from "./pages/reviewer/ReviewerDashboard";
 import Users from "./pages/admin/users";
+import Pages from "./pages/admin/pages";
+import ArticleSubject from "./pages/admin/article-subject";
+import ArticleType from "./pages/admin/article-type";
+import Issues from "./pages/admin/issues";
 function App() {
   return (
     <Router>
@@ -51,6 +55,11 @@ function App() {
         <Route path="/admin/editprofile" element={<EditProfile />} />
         <Route path="/admin/profile" element={<Profile />} />
         <Route path="/admin/users" element={<Users />} />
+        <Route path="/admin/pages" element={<Pages />} />
+        <Route path="/admin/article-subject" element={<ArticleSubject />} />
+        <Route path="/admin/article-type" element={<ArticleType />} />
+        <Route path="/admin/issues" element={<Issues />} />
+        {/* Add more routes as needed */}
       </Routes>
     </Router>
   );
