@@ -9,7 +9,15 @@ const Sidebar = ({ children, title }) => {
     const [isPublishersOpen, setIsPublishersOpen] = useState(false);
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
-    const handleLogout = () => {
+    const handleLogout = async () => {
+        try {
+            await fetch('http://localhost/my_journal/backend/logout.php', {
+                method: 'POST',
+                credentials: 'include', // Important for cookies/session
+            });
+        } catch (e) {
+            // Optionally handle error
+        }
         localStorage.removeItem('user');
         navigate('/login');
     };

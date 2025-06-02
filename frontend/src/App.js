@@ -16,8 +16,6 @@ import ReviewerTeam from "./pages/reviewer_team";
 import SubmitManuscript from "./pages/submit_manuscript";
 import Contact from "./pages/contact";
 import ProtectedRoute from "./components/ProtectedRoute";
-import EditProfile from "./pages/admin/editprofile";
-import Profile from "./pages/admin/profile";
 
 //admin page routes
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -29,6 +27,9 @@ import Pages from "./pages/admin/pages";
 import ArticleSubject from "./pages/admin/article-subject";
 import ArticleType from "./pages/admin/article-type";
 import Issues from "./pages/admin/issues";
+import EditProfile from "./pages/admin/editprofile";
+import Profile from "./pages/admin/profile";
+import AddPage from "./pages/admin/addpage";
 function App() {
   return (
     <Router>
@@ -53,12 +54,14 @@ function App() {
         <Route path="/submit_manuscript" element={<SubmitManuscript />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/admin/editprofile" element={<EditProfile />} />
-        <Route path="/admin/profile" element={<Profile />} />
-        <Route path="/admin/users" element={<Users />} />
-        <Route path="/admin/pages" element={<Pages />} />
-        <Route path="/admin/article-subject" element={<ArticleSubject />} />
-        <Route path="/admin/article-type" element={<ArticleType />} />
-        <Route path="/admin/issues" element={<Issues />} />
+        <Route path="/admin/profile" element={<ProtectedRoute> <Profile /> </ProtectedRoute>} />
+        <Route path="/admin/users" element={<ProtectedRoute> <Users /> </ProtectedRoute>} />
+        <Route path="/admin/pages" element={<ProtectedRoute> <Pages /> </ProtectedRoute>} />
+        <Route path="/admin/article-subject" element={<ProtectedRoute> <ArticleSubject /> </ProtectedRoute>} />
+        <Route path="/admin/article-type" element={<ProtectedRoute> <ArticleType /> </ProtectedRoute>} />
+        <Route path="/admin/issues" element={<ProtectedRoute><Issues /> </ProtectedRoute>} />
+        <Route path="/admin/addpage" element={<ProtectedRoute> <AddPage /> </ProtectedRoute>} />
+        <Route path="/admin/addpage/:id" element={<ProtectedRoute><AddPage /></ProtectedRoute>} />s
         {/* Add more routes as needed */}
       </Routes>
     </Router>
