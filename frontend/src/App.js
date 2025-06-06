@@ -53,7 +53,7 @@ function App() {
         <Route path="/reviewer_team" element={<ReviewerTeam />} />
         <Route path="/submit_manuscript" element={<SubmitManuscript />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/admin/editprofile" element={<EditProfile />} />
+        <Route path="/admin/editprofile" element={<ProtectedRoute> <EditProfile /> </ProtectedRoute>} />
         <Route path="/admin/profile" element={<ProtectedRoute> <Profile /> </ProtectedRoute>} />
         <Route path="/admin/users" element={<ProtectedRoute> <Users /> </ProtectedRoute>} />
         <Route path="/admin/pages" element={<ProtectedRoute> <Pages /> </ProtectedRoute>} />

@@ -28,7 +28,8 @@ if ($result->num_rows > 0) {
     "user" => [
   "login_id" => $user["login_id"],
   "user_name" => $user["user_name"],
-  "user_type" => $user["user_type"]
+  "user_type" => $user["user_type"],
+  'First_Name' => $user['First_Name']
 ]
   ]);
 } else {

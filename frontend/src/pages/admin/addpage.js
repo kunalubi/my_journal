@@ -143,63 +143,122 @@ const AddPage = () => {
 
     return (
         <Sidebar title={id ? 'Edit Page' : 'Add New Page'}>
-            <div className="card h-100">
-                <div className="card-body">
-                    <h2>{id ? 'Edit Page' : 'Create New Page'}</h2>
-                    <form onSubmit={handleSubmit}>
-                        <div className="mb-3">
-                            <label htmlFor="pageTitle" className="form-label">Page Title</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="pageTitle"
-                                value={pageTitle}
-                                onChange={(e) => setPageTitle(e.target.value)}
-                                required
-                            />
-                        </div>
+  <div
+    className="card"
+    style={{
+      backgroundColor: '#E0F7FA',
+      borderRadius: '16px',
+      padding: '24px',
+      boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+      border: 'none',
+      margin: '0 auto',
+    }}
+  >
+    <div className="card-body">
+      <h4 className="fw-bold text-dark mb-4">
+        {id ? 'Edit Page' : 'Create New Page'}
+      </h4>
 
-                        <div className="mb-3">
-                            <label htmlFor="metaTitle" className="form-label">Meta Title</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="metaTitle"
-                                value={metaTitle}
-                                onChange={(e) => setMetaTitle(e.target.value)}
-                                required
-                            />
-                        </div>
+      <form onSubmit={handleSubmit}>
+        <div className="mb-4">
+          <label className="form-label fw-semibold">Page Title <span className="text-danger">*</span></label>
+          <input
+            type="text"
+            className="form-control"
+            value={pageTitle}
+            onChange={(e) => setPageTitle(e.target.value)}
+            required
+            style={{
+              backgroundColor: '#ffffff',
+              borderColor: '#B3E5FC',
+              borderRadius: '8px',
+            }}
+            placeholder="Enter page title"
+          />
+        </div>
 
-                        <div className="mb-3">
-                            <label htmlFor="metaDescription" className="form-label">Meta Tag Description</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="metaDescription"
-                                value={metaDescription}
-                                onChange={(e) => setMetaDescription(e.target.value)}
-                            />
-                        </div>
+        <div className="mb-4">
+          <label className="form-label fw-semibold">Meta Title</label>
+          <input
+            type="text"
+            className="form-control"
+            value={metaTitle}
+            onChange={(e) => setMetaTitle(e.target.value)}
+            style={{
+              backgroundColor: '#ffffff',
+              borderColor: '#B3E5FC',
+              borderRadius: '8px',
+            }}
+            placeholder="Enter meta title"
+          />
+        </div>
 
-                        <div className="mb-3">
-                            <label htmlFor="pageContent" className="form-label">Page Content</label>
-                            <CKEditor
-                                editor={ClassicEditor}
-                                data={pageContent}
-                                onChange={(event, editor) => {
-                                    setPageContent(editor.getData());
-                                }}
-                            />
-                        </div>
+        <div className="mb-4">
+          <label className="form-label fw-semibold">Meta Description</label>
+          <input
+            type="text"
+            className="form-control"
+            value={metaDescription}
+            onChange={(e) => setMetaDescription(e.target.value)}
+            style={{
+              backgroundColor: '#ffffff',
+              borderColor: '#B3E5FC',
+              borderRadius: '8px',
+            }}
+            placeholder="Enter meta description"
+          />
+        </div>
 
-                        <button type="submit" className="btn btn-success">
-                            {id ? 'Update Page' : 'Save Page'}
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </Sidebar>
+        <div className="mb-4">
+          <label className="form-label fw-semibold">Page Content</label>
+          <div
+            style={{
+              border: '1px solid #B3E5FC',
+              borderRadius: '8px',
+              backgroundColor: '#ffffff',
+              padding: '10px',
+              minHeight: '250px',
+            }}
+          >
+            <CKEditor
+              editor={ClassicEditor}
+              data={pageContent}
+              onChange={(event, editor) => {
+                setPageContent(editor.getData());
+              }}
+            />
+          </div>
+        </div>
+
+        <div className="d-flex justify-content-between">
+          <button
+            type="button"
+            className="btn btn-outline-secondary"
+            onClick={() => navigate('/admin/pages')}
+            style={{ borderRadius: '8px', padding: '8px 20px' }}
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            className="btn"
+            style={{
+              backgroundColor: '#0288D1',
+              color: 'white',
+              borderRadius: '8px',
+              padding: '8px 20px',
+            }}
+          >
+            {id ? 'Update Page' : 'Save Page'}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</Sidebar>
+
+
+      
     );
 };
 
